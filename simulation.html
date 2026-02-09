@@ -53,14 +53,14 @@
             </div>
         </div>
 
-        <!-- 2. Transaction Simulation -->
+        <!-- 2. P2P Transaction Simulation -->
         <div class="card sim-card">
-            <h2>2. 模拟转账 (Transfer)</h2>
-            <p>尝试从你的钱包发送资产。<strong>测试一下：把 TRC20 的 USDT 转到 Solana 网络会发生什么？</strong></p>
+            <h2>2. 模拟点对点 (P2P) 转账</h2>
+            <p>尝试从你的钱包发送资产给朋友。<strong>测试一下：把 TRC20 的 USDT 转到 Solana 网络会发生什么？</strong></p>
 
             <div class="sim-form">
                 <div class="form-group">
-                    <label>发送资产 (From):</label>
+                    <label>发送资产 (From Your Wallet):</label>
                     <select id="sendAsset">
                         <option value="usdt-trc">USDT (Tron/TRC20)</option>
                         <option value="usdt-sol">USDT (Solana)</option>
@@ -70,8 +70,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label>接收地址 (To Address):</label>
-                    <input type="text" id="recvAddress" placeholder="输入接收方地址..." value="SimulatedUserAddress123">
+                    <label>接收方地址 (Friend's Address):</label>
+                    <!-- Simulated "Friend" addresses for convenience -->
+                    <div style="margin-bottom: 0.5rem; font-size: 0.9em; color: #64748b;">
+                        快速填写 (点击): 
+                        <a href="#" class="quick-fill" data-addr="0xFriend888...ETH" data-net="ethereum">朋友(ETH)</a> | 
+                        <a href="#" class="quick-fill" data-addr="TPFriend999...TRX" data-net="tron">朋友(Tron)</a> | 
+                        <a href="#" class="quick-fill" data-addr="SoLFriend777...SOL" data-net="solana">朋友(Solana)</a>
+                    </div>
+                    <input type="text" id="recvAddress" placeholder="输入接收方地址..." value="">
                 </div>
 
                 <div class="form-group">
@@ -92,6 +99,38 @@
             </div>
 
             <div id="txResult" class="result-box hidden"></div>
+        </div>
+
+        <!-- 3. Merchant Payment Simulation -->
+        <div class="card sim-card" style="border-left: 4px solid #8b5cf6;">
+            <h2>3. 模拟对公支付 (Merchant Payment)</h2>
+            <p>这是一个典型的电商支付场景。商家会给你一个固定金额的订单。<strong>如果不按金额支付会怎样？</strong></p>
+
+            <div class="info-box merchant-invoice">
+                <h4>🧾 待支付订单 #ORDER-8821</h4>
+                <p>商品：高级会员订阅 (1个月)</p>
+                <p>应付金额：<strong>50.00 USDT (TRC20)</strong></p>
+                <p>商家接收地址 (TRC20)：<span class="address-text">TMercHANTPay...Address</span></p>
+            </div>
+
+            <div class="sim-form">
+                <div class="form-group">
+                    <label>你打算支付的金额 (Amount):</label>
+                    <input type="number" id="merchantPayAmount" placeholder="50.0" value="50">
+                    <small style="color: #64748b;">尝试输入 49.9 或 50.1 看看后果</small>
+                </div>
+                 <div class="form-group">
+                    <label>选择支付网络:</label>
+                    <select id="merchantPayNetwork">
+                        <option value="tron">Tron (TRC20) - 正确网络</option>
+                        <option value="ethereum">Ethereum (ERC20) - 错误网络</option>
+                    </select>
+                </div>
+
+                <button id="merchantPayBtn" class="cta-button sim-btn" style="background-color: #8b5cf6;">支付订单</button>
+            </div>
+
+            <div id="merchantResult" class="result-box hidden"></div>
         </div>
 
     </main>
