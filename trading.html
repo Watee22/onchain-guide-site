@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开始交易 - 链上交易 101</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">链上交易 101</a>
+            <div class="nav-links">
+                <a href="setup.html">1. 钱包设置</a>
+                <a href="trading.html" class="active">2. 开始交易</a>
+                <a href="security.html">3. 安全提示</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>第二步：去中心化交易 (DEX)</h1>
+        <p>现在你已经有了 MetaMask 钱包，并且里面有了一点 ETH，你可以开始在去中心化交易所 (DEX) 上进行交易了。</p>
+
+        <div class="card">
+            <h2>什么是 DEX？</h2>
+            <p>DEX 是去中心化交易所 (Decentralized Exchange) 的简称。与 Binance 或 Coinbase 不同，DEX 没有中间人，你直接与其他用户或智能合约进行交易。</p>
+            <ul>
+                <li>🦄 <strong>Uniswap</strong>: 以太坊上最大、最受欢迎的 DEX。</li>
+                <li>🍣 <strong>SushiSwap</strong>: 另一个流行的 DEX，支持多链。</li>
+                <li>🥞 <strong>PancakeSwap</strong>: 币安智能链 (BSC) 上的 DEX。</li>
+            </ul>
+        </div>
+
+        <div class="alert">
+            <span class="alert-title">Gas 费 (Gas Fee)</span>
+            每次交易都需要支付 Gas 费给矿工/验证者。这通常是用 ETH 支付的（如果是以太坊网络）。如果网络拥堵，Gas 费可能会很高。
+        </div>
+
+        <h2>如何交易 (Swap)</h2>
+        <p>以 Uniswap 为例，操作非常简单：</p>
+        
+        <div class="card">
+            <ol>
+                <li>
+                    <h3>连接钱包</h3>
+                    <p>打开 <a href="https://app.uniswap.org/" target="_blank">Uniswap App</a>，点击右上角的 "Connect Wallet"（连接钱包），选择 MetaMask 并批准连接。</p>
+                </li>
+                <li>
+                    <h3>选择代币</h3>
+                    <p>在 "Swap" 界面：
+                        <ul>
+                            <li><strong>上方 (Pay)</strong>: 选择你想要卖出的代币（例如 ETH）。</li>
+                            <li><strong>下方 (Receive)</strong>: 选择你想要买入的代币（例如 USDC）。</li>
+                        </ul>
+                    </p>
+                </li>
+                <li>
+                    <h3>输入金额</h3>
+                    <p>输入你想卖出的 ETH 数量，系统会自动计算你能收到的 USDC 数量。</p>
+                </li>
+                <li>
+                    <h3>滑点 (Slippage)</h3>
+                    <p>如果市场波动大，你需要设置滑点容忍度（通常默认 0.5%）。如果实际价格变动超过这个范围，交易会失败。</p>
+                </li>
+                <li>
+                    <h3>批准与交换</h3>
+                    <p>如果是第一次卖出某种代币（非 ETH），你需要先 "Approve"（授权）DEX 使用该代币（需支付一次 Gas）。然后点击 "Swap"（交换），并在 MetaMask 中确认交易。</p>
+                </li>
+            </ol>
+        </div>
+
+        <h2>交易确认</h2>
+        <p>一旦你在 MetaMask 中确认，交易就会被发送到区块链。几秒到几分钟后（取决于网络状况），你会看到 "Transaction Confirmed"（交易确认）的通知，你的余额也会相应更新。</p>
+        
+        <a href="security.html" class="cta-button">最后，学习如何保护资产 →</a>
+
+    </main>
+
+    <footer>
+        <p>© 2024 On-Chain Trading 101. 此内容仅供教育目的，不构成投资建议。</p>
+    </footer>
+</body>
+</html>
