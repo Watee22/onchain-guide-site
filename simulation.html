@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模拟实战 - 链上交易 101</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">链上交易 101</a>
+            <div class="nav-links">
+                <a href="setup.html">1. 钱包设置</a>
+                <a href="trading.html">2. 开始交易</a>
+                <a href="security.html">3. 安全提示</a>
+                <a href="simulation.html" class="active">4. 模拟实战</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1>链上操作模拟器</h1>
+        <p>在这里，你可以安全地体验创建钱包和转账的过程，不用担心损失真实的资金。特别注意不同链之间的转账规则！</p>
+
+        <!-- 1. Wallet Setup Simulation -->
+        <div class="card sim-card">
+            <h2>1. 模拟创建钱包</h2>
+            <p>点击下方按钮生成你的第一个（模拟）数字钱包。</p>
+            <button id="createWalletBtn" class="cta-button sim-btn">生成新钱包</button>
+            
+            <div id="walletResult" class="hidden">
+                <div class="info-box">
+                    <h4>🔐 你的助记词 (Mnemonic Phrase)</h4>
+                    <p class="mnemonic-text" id="mnemonicDisplay">--- --- --- --- --- --- --- --- --- --- --- ---</p>
+                    <p class="warning-text">⚠️ 严禁截图或告诉他人！拥有助记词 = 拥有资产所有权。</p>
+                </div>
+                <div class="info-box">
+                    <h4>📫 你的钱包地址</h4>
+                    <p><strong>ETH/BSC/Polygon:</strong> <span id="ethAddress" class="address-text">0x...</span></p>
+                    <p><strong>Tron (TRC20):</strong> <span id="tronAddress" class="address-text">T...</span></p>
+                    <p><strong>Solana:</strong> <span id="solAddress" class="address-text">...</span></p>
+                </div>
+                <div class="info-box">
+                    <h4>💰 初始模拟余额</h4>
+                    <ul id="balanceList">
+                        <li>ETH: <span id="bal-eth">1.0</span></li>
+                        <li>USDT (TRC20): <span id="bal-usdt-trc">1000.0</span></li>
+                        <li>USDT (Solana): <span id="bal-usdt-sol">1000.0</span></li>
+                        <li>SOL: <span id="bal-sol">10.0</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Transaction Simulation -->
+        <div class="card sim-card">
+            <h2>2. 模拟转账 (Transfer)</h2>
+            <p>尝试从你的钱包发送资产。<strong>测试一下：把 TRC20 的 USDT 转到 Solana 网络会发生什么？</strong></p>
+
+            <div class="sim-form">
+                <div class="form-group">
+                    <label>发送资产 (From):</label>
+                    <select id="sendAsset">
+                        <option value="usdt-trc">USDT (Tron/TRC20)</option>
+                        <option value="usdt-sol">USDT (Solana)</option>
+                        <option value="eth">ETH (Ethereum)</option>
+                        <option value="sol">SOL (Solana)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>接收地址 (To Address):</label>
+                    <input type="text" id="recvAddress" placeholder="输入接收方地址..." value="SimulatedUserAddress123">
+                </div>
+
+                <div class="form-group">
+                    <label>接收网络 (Target Network):</label>
+                    <select id="targetNetwork">
+                        <option value="tron">Tron (TRC20)</option>
+                        <option value="solana">Solana</option>
+                        <option value="ethereum">Ethereum (ERC20)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>金额 (Amount):</label>
+                    <input type="number" id="sendAmount" placeholder="0.0" value="100">
+                </div>
+
+                <button id="sendBtn" class="cta-button sim-btn">确认发送</button>
+            </div>
+
+            <div id="txResult" class="result-box hidden"></div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2024 On-Chain Trading 101. 模拟器资金均为虚拟，仅供教学。</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
