@@ -28,14 +28,31 @@
             <!-- My Wallet -->
             <div class="card sim-card">
                 <h2>🔐 我的钱包 (My Wallet)</h2>
-                <div class="info-box">
+                
+                <div class="action-row" style="margin-bottom: 1rem;">
+                    <button id="createWalletBtn" class="cta-button sim-btn small">生成/重置钱包</button>
+                </div>
+
+                <!-- Hidden Details (Shown after Generate) -->
+                <div id="walletDetails" class="result-box hidden" style="background: #f8fafc; border: 1px solid #e2e8f0; color: #334155;">
+                    <div class="detail-group">
+                        <h4>🔐 助记词 (Mnemonic Phrase)</h4>
+                        <p class="mnemonic-text" id="mnemonicDisplay" style="background: #e2e8f0; padding: 0.5rem; border-radius: 4px; font-family: monospace; margin: 0.5rem 0;">---</p>
+                        <p style="color: #ef4444; font-weight: bold; font-size: 0.9rem;">⚠️ 严禁截图或告诉他人！拥有助记词 = 拥有资产所有权。</p>
+                    </div>
+                    <div class="detail-group" style="margin-top: 1rem;">
+                        <h4>📫 模拟地址 (Addresses)</h4>
+                        <p><strong>ETH/Base:</strong> <span id="ethAddress" style="color: #2563eb; font-family: monospace;">0x...</span></p>
+                        <p><strong>Tron:</strong> <span id="tronAddress" style="color: #2563eb; font-family: monospace;">T...</span></p>
+                        <p><strong>Solana:</strong> <span id="solAddress" style="color: #2563eb; font-family: monospace;">...</span></p>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 1rem;">
                     <h4>💰 资产余额 (Balances)</h4>
                     <ul id="myBalanceList" class="balance-list">
                         <!-- Populated by JS -->
                     </ul>
-                </div>
-                <div class="action-row">
-                    <button id="createWalletBtn" class="cta-button sim-btn small">重置/生成钱包</button>
                 </div>
             </div>
 

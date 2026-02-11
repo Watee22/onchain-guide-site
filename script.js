@@ -67,6 +67,11 @@ const ui = {
 };
 
 // Initialization
+const mockMnemonic = "apple river house sleep car blue sky green grass bird fly sun";
+const mockEthAddress = "0x71C7656EC7ab88b098defB751B7401B5f6d8976F";
+const mockTronAddress = "TX8...72j";
+const mockSolAddress = "Hu9...2kL";
+
 function renderBalances() {
     // My Balances
     ui.myBalanceList.innerHTML = `
@@ -91,8 +96,25 @@ renderBalances();
 
 // 1. Reset Wallet
 ui.createWalletBtn.addEventListener('click', () => {
-    if(confirm("确定要重置所有模拟数据吗？")) {
+    if(confirm("确定要重置所有模拟数据并生成新钱包吗？")) {
+        // Reset State
         state = JSON.parse(JSON.stringify(INITIAL_BALANCES));
+        
+        // Show Details
+        const detailsDiv = document.getElementById('walletDetails');
+        const mnemonicDisp = document.getElementById('mnemonicDisplay');
+        const ethDisp = document.getElementById('ethAddress');
+        const tronDisp = document.getElementById('tronAddress');
+        const solDisp = document.getElementById('solAddress');
+
+        if(detailsDiv) {
+            detailsDiv.classList.remove('hidden');
+            mnemonicDisp.textContent = mockMnemonic;
+            ethDisp.textContent = mockEthAddress;
+            tronDisp.textContent = mockTronAddress;
+            solDisp.textContent = mockSolAddress;
+        }
+
         renderBalances();
         clearResults();
     }
