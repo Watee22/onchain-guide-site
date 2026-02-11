@@ -14,71 +14,146 @@
                 <a href="setup.html">1. 钱包设置</a>
                 <a href="trading.html">2. 开始交易</a>
                 <a href="security.html">3. 安全提示</a>
-                <a href="simulation.html" class="active">4. 模拟实战</a>
+                <a href="simulation.html" class="active">4. 模拟实战 (高级)</a>
             </div>
         </nav>
     </header>
 
     <main>
-        <h1>链上操作模拟器</h1>
-        <p>在这里，你可以安全地体验创建钱包和转账的过程，不用担心损失真实的资金。特别注意不同链之间的转账规则！</p>
+        <h1>链上操作模拟器 (高级版)</h1>
+        <p>在这里，你可以体验真实的多链环境：管理 Gas 费、跨链桥接资产、以及在 Base 等 Layer 2 网络上操作。</p>
 
-        <!-- 1. Wallet Setup Simulation -->
-        <div class="card sim-card">
-            <h2>1. 模拟创建钱包</h2>
-            <p>点击下方按钮生成你的第一个（模拟）数字钱包。</p>
-            <button id="createWalletBtn" class="cta-button sim-btn">生成新钱包</button>
-            
-            <div id="walletResult" class="hidden">
+        <!-- 1. Wallet Display (Me & Friend) -->
+        <div class="dashboard-grid">
+            <!-- My Wallet -->
+            <div class="card sim-card">
+                <h2>🔐 我的钱包 (My Wallet)</h2>
                 <div class="info-box">
-                    <h4>🔐 你的助记词 (Mnemonic Phrase)</h4>
-                    <p class="mnemonic-text" id="mnemonicDisplay">--- --- --- --- --- --- --- --- --- --- --- ---</p>
-                    <p class="warning-text">⚠️ 严禁截图或告诉他人！拥有助记词 = 拥有资产所有权。</p>
-                </div>
-                <div class="info-box">
-                    <h4>📫 你的钱包地址</h4>
-                    <p><strong>ETH/BSC/Polygon:</strong> <span id="ethAddress" class="address-text">0x...</span></p>
-                    <p><strong>Tron (TRC20):</strong> <span id="tronAddress" class="address-text">T...</span></p>
-                    <p><strong>Solana:</strong> <span id="solAddress" class="address-text">...</span></p>
-                </div>
-                <div class="info-box">
-                    <h4>💰 初始模拟余额</h4>
-                    <ul id="balanceList">
-                        <li>ETH: <span id="bal-eth">1.0</span></li>
-                        <li>USDT (TRC20): <span id="bal-usdt-trc">1000.0</span></li>
-                        <li>USDT (Solana): <span id="bal-usdt-sol">1000.0</span></li>
-                        <li>SOL: <span id="bal-sol">10.0</span></li>
+                    <h4>💰 资产余额 (Balances)</h4>
+                    <ul id="myBalanceList" class="balance-list">
+                        <!-- Populated by JS -->
                     </ul>
                 </div>
+                <div class="action-row">
+                    <button id="createWalletBtn" class="cta-button sim-btn small">重置/生成钱包</button>
+                </div>
+            </div>
+
+            <!-- Friend's Wallet -->
+            <div class="card sim-card friend-card">
+                <h2>👤 朋友的钱包 (Friend's View)</h2>
+                <div class="info-box">
+                    <h4>💰 朋友的资产</h4>
+                    <ul id="friendBalanceList" class="balance-list">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+                <p class="hint-text">* 当你转账给朋友时，这里的余额会增加。</p>
             </div>
         </div>
 
-        <!-- 2. P2P Transaction Simulation -->
-        <div class="card sim-card">
-            <h2>2. 模拟点对点 (P2P) 转账</h2>
-            <p>尝试从你的钱包发送资产给朋友。<strong>测试一下：把 TRC20 的 USDT 转到 Solana 网络会发生什么？</strong></p>
+        <!-- 2. Gas Station -->
+        <div class="card sim-card gas-station">
+            <h2>⛽ Gas 加油站 (Gas Station)</h2>
+            <p><strong>关键知识点：</strong> 在任何链上交易都需要支付“路费”(Gas)。<br>
+            - 以太坊链需要 <strong>ETH</strong><br>
+            - 波场链需要 <strong>TRX</strong><br>
+            - Solana 链需要 <strong>SOL</strong><br>
+            - Base 链需要 <strong>ETH (Base)</strong></p>
+            
+            <div class="sim-form inline-form">
+                <div class="form-group">
+                    <label>购买网络 (Buy Gas For):</label>
+                    <select id="gasNetwork">
+                        <option value="ethereum">Ethereum (ETH)</option>
+                        <option value="tron">Tron (TRX)</option>
+                        <option value="solana">Solana (SOL)</option>
+                        <option value="base">Base (ETH)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>花费 USDT (Cost):</label>
+                    <input type="number" id="gasCostUsdt" value="10" min="1">
+                </div>
+                <button id="buyGasBtn" class="cta-button sim-btn">购买 Gas</button>
+            </div>
+            <div id="gasResult" class="result-box hidden"></div>
+        </div>
+
+        <!-- 3. Cross-Chain Bridge -->
+        <div class="card sim-card bridge-section">
+            <h2>🌉 跨链桥 (Cross-Chain Bridge)</h2>
+            <p>不同区块链是“平行宇宙”，资产不能直接互通。你需要<strong>跨链桥</strong>来搬运资产。</p>
+            <p class="fee-hint">手续费：每次跨链收取 <strong>1 USDT</strong> + 目标链 Gas 费。</p>
 
             <div class="sim-form">
+                <div class="bridge-row">
+                    <div class="form-group">
+                        <label>从 (From):</label>
+                        <select id="bridgeFromNet">
+                            <option value="ethereum">Ethereum</option>
+                            <option value="tron">Tron</option>
+                            <option value="solana">Solana</option>
+                            <option value="base">Base</option>
+                        </select>
+                    </div>
+                    <div class="arrow">➡️</div>
+                    <div class="form-group">
+                        <label>到 (To):</label>
+                        <select id="bridgeToNet">
+                            <option value="base" selected>Base</option>
+                            <option value="ethereum">Ethereum</option>
+                            <option value="tron">Tron</option>
+                            <option value="solana">Solana</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <label>发送资产 (From Your Wallet):</label>
-                    <select id="sendAsset">
-                        <option value="usdt-trc">USDT (Tron/TRC20)</option>
-                        <option value="usdt-sol">USDT (Solana)</option>
-                        <option value="eth">ETH (Ethereum)</option>
-                        <option value="sol">SOL (Solana)</option>
+                    <label>跨链资产 (Asset):</label>
+                    <select id="bridgeAsset">
+                        <option value="usdt">USDT</option>
+                        <!-- Future: Add ETH, etc. -->
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>接收方地址 (Friend's Address):</label>
-                    <!-- Simulated "Friend" addresses for convenience -->
-                    <div style="margin-bottom: 0.5rem; font-size: 0.9em; color: #64748b;">
-                        快速填写 (点击): 
-                        <a href="#" class="quick-fill" data-addr="0xFriend888...ETH" data-net="ethereum">朋友(ETH)</a> | 
-                        <a href="#" class="quick-fill" data-addr="TPFriend999...TRX" data-net="tron">朋友(Tron)</a> | 
-                        <a href="#" class="quick-fill" data-addr="SoLFriend777...SOL" data-net="solana">朋友(Solana)</a>
-                    </div>
-                    <input type="text" id="recvAddress" placeholder="输入接收方地址..." value="">
+                    <label>数量 (Amount):</label>
+                    <input type="number" id="bridgeAmount" value="100">
+                </div>
+
+                <button id="bridgeBtn" class="cta-button sim-btn bridge-btn">开始跨链 (Bridge)</button>
+            </div>
+            <div id="bridgeResult" class="result-box hidden"></div>
+        </div>
+
+        <!-- 4. P2P Transaction Simulation -->
+        <div class="card sim-card">
+            <h2>4. 模拟转账 (Send to Friend)</h2>
+            <p>尝试转账给朋友。<strong>注意检查你的 Gas 余额！</strong></p>
+
+            <div class="sim-form">
+                <div class="form-group">
+                    <label>选择资产 (Asset):</label>
+                    <select id="sendAsset">
+                        <option value="usdt-trc">USDT (Tron)</option>
+                        <option value="usdt-eth">USDT (Ethereum)</option>
+                        <option value="usdt-sol">USDT (Solana)</option>
+                        <option value="usdt-base">USDT (Base)</option>
+                        <option value="eth">ETH (Ethereum)</option>
+                        <option value="sol">SOL (Solana)</option>
+                        <option value="eth-base">ETH (Base)</option>
+                        <option value="trx">TRX (Tron)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>接收方 (Recipient):</label>
+                    <select id="recvPerson">
+                        <option value="friend">朋友 (Friend)</option>
+                        <option value="merchant">商家 (Merchant)</option>
+                        <option value="other">其他地址 (Other)</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -87,50 +162,19 @@
                         <option value="tron">Tron (TRC20)</option>
                         <option value="solana">Solana</option>
                         <option value="ethereum">Ethereum (ERC20)</option>
+                        <option value="base">Base (L2)</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label>金额 (Amount):</label>
-                    <input type="number" id="sendAmount" placeholder="0.0" value="100">
+                    <input type="number" id="sendAmount" placeholder="0.0" value="50">
                 </div>
 
                 <button id="sendBtn" class="cta-button sim-btn">确认发送</button>
             </div>
 
             <div id="txResult" class="result-box hidden"></div>
-        </div>
-
-        <!-- 3. Merchant Payment Simulation -->
-        <div class="card sim-card" style="border-left: 4px solid #8b5cf6;">
-            <h2>3. 模拟对公支付 (Merchant Payment)</h2>
-            <p>这是一个典型的电商支付场景。商家会给你一个固定金额的订单。<strong>如果不按金额支付会怎样？</strong></p>
-
-            <div class="info-box merchant-invoice">
-                <h4>🧾 待支付订单 #ORDER-8821</h4>
-                <p>商品：高级会员订阅 (1个月)</p>
-                <p>应付金额：<strong>50.00 USDT (TRC20)</strong></p>
-                <p>商家接收地址 (TRC20)：<span class="address-text">TMercHANTPay...Address</span></p>
-            </div>
-
-            <div class="sim-form">
-                <div class="form-group">
-                    <label>你打算支付的金额 (Amount):</label>
-                    <input type="number" id="merchantPayAmount" placeholder="50.0" value="50">
-                    <small style="color: #64748b;">尝试输入 49.9 或 50.1 看看后果</small>
-                </div>
-                 <div class="form-group">
-                    <label>选择支付网络:</label>
-                    <select id="merchantPayNetwork">
-                        <option value="tron">Tron (TRC20) - 正确网络</option>
-                        <option value="ethereum">Ethereum (ERC20) - 错误网络</option>
-                    </select>
-                </div>
-
-                <button id="merchantPayBtn" class="cta-button sim-btn" style="background-color: #8b5cf6;">支付订单</button>
-            </div>
-
-            <div id="merchantResult" class="result-box hidden"></div>
         </div>
 
     </main>
